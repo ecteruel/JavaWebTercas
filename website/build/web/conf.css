@@ -1,11 +1,14 @@
 body{
-    background-color: #ededed
+    background-color: #ffffff
 } 
 
 header{
-    width:80%;
-    border:solid #ff0000 2px;
     background-color: #336699    
+}
+
+header, nav, section, footer{
+    border:solid #ededed 0.5px; 
+    width:80%;
 }
 
 h1{
@@ -19,11 +22,9 @@ h1{
 }
 
 nav{
-   width:80%;
    height:25px;
    margin-top: 2px;
    background-color: #c0c0c0;
-   border:solid #336699 2px
 }
 
 nav a{
@@ -39,9 +40,7 @@ nav a:hover{
 }
 
 section{
-    width:80%; /* define a largura do contêiner */
     height: 400px;
-    border:solid #ff0000 2px;
 }
 
 iframe{
@@ -51,9 +50,7 @@ iframe{
 }
 
 footer{
-    width:80%;
     background-color: #336699;
-    border:solid #ff0000 2px    
 }
 
 footer p{
