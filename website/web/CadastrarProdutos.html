@@ -6,18 +6,19 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
     </head>
     <body>
+        <!-- Botão Salvar envia os dados para CadastrarProduto.jsp -->
         <form method="post" action="CadastrarProduto.jsp">
             <p>
                 <label for="codigo"> Código:* </label>
-                <input type="text" name="codigo" size="20" maxlength="20" id="codigo" required>                
+                <input type="number" name="codigo" id="codigo" required>                
             </p>
             <p>
                 <label for="nome"> Nome do produto:* </label>
-                <input type="text" name="nome" size="50" maxlength="50" id="nome" required>                
+                <input type="text" name="nome" size="50" maxlength="70" id="nome" required>                
             </p>            
             <p>
                 <label for="marca"> Marca: </label>
-                <input type="text" name="marca" size="30" maxlength="30" id="marca">                
+                <input type="text" name="marca" size="30" maxlength="70" id="marca">                
             </p>
             <p>
                 <label for="preco"> Preço: </label>
