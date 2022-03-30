@@ -8,6 +8,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>JSP Page</title>
+        <meta charset="UTF-8">
     </head>
     <body>
         <%
@@ -18,15 +19,15 @@
             codigo = Integer.parseInt(request.getParameter("codigo"));
             nome = request.getParameter("nome");
             marca = request.getParameter("marca");
-            preco = Double.parseDouble(request.getParameter("preco"));
-
+            preco = Double.parseDouble(request.getParameter("preco").replace("," , "."));  //12.5
+           
             try {
                 // 2) Conectar com o Banco de dados
 
                 Class.forName("com.mysql.jdbc.Driver");
                 Connection conexao = DriverManager.getConnection("jdbc:mysql://localhost:3306/bancoterca", "root", "teruel");
 
-                // 3) Enviar os dados para a tabela do banco de dados
+                //3) Enviar os dados para a tabela do banco de dados
                 PreparedStatement st = conexao.prepareStatement("INSERT INTO produtos VALUES(?, ?, ?, ?)");
                 st.setInt(1, codigo);
                 st.setString(2, nome);
@@ -41,7 +42,12 @@
             } catch (ClassNotFoundException x) {
                 out.print("Você não colocou o driver JDBC no projeto " + x.getMessage());
             } catch (SQLException x) {
-                out.print("Você digitou alguma coisa de SQL errado " + x.getMessage());
+                if(x.getErrorCode()==1062){ //Tentativa de duplicação de chave primária (código)
+                    out.print("Este código de produto já está cadastrado");
+                }else{
+                    out.println("Erro número:" + x.getErrorCode());
+                    out.println("Entre em contato com o administrador do sistema");
+                }
             }
         %>
     </body>    
