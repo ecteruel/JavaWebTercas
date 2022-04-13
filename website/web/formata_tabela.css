@@ -1,0 +1,18 @@
+table{
+    border: solid #ededed 1px;
+    width: 90%;
+}
+
+table th{
+    font-weight: bold;
+    background-color: #000000;
+    color:#ffffff;
+    font-family: 'Shadows Into Light', cursive;
+    font-size: 18px;
+}
+
+table td{
+    text-align:center;
+    font-family: 'Rajdhani', sans-serif;
+}
+

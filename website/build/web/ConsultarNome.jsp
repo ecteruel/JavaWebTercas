@@ -1,4 +1,3 @@
-
 <%@page import="java.sql.SQLException"%>
 <%@page import="java.sql.ResultSet"%>
 <%@page import="java.sql.PreparedStatement"%>
@@ -10,6 +9,10 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
         <title>Consultar produtos por nome</title>
+        <link rel="stylesheet" href="formata_tabela.css">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Amatic+SC&family=Rajdhani:wght@300&family=Shadows+Into+Light&display=swap" rel="stylesheet">
     </head>
     <body>
         <%
@@ -29,13 +32,13 @@
 
                 //4) Se o produto for encontrado, exibir os dados
                 //   Senão, exibir uma mensagem avisando que o produto não foi encontrado
-                while (resultado.next()) { //Faça enquanto tiver produtos na variável resultado
-                    out.print("<p> Código:" + resultado.getString("codigo") + "</p>");
-                    out.print("<p> Nome:" + resultado.getString("nome") + "</p>");
-                    out.print("<p> Marca:" + resultado.getString("marca") + "</p>");
-                    out.print("<p> Preço:" + resultado.getString("preco") + "</p>");
-                    out.print("<p><br></p>");
-                }
+                out.print("<table>");
+                out.print("<tr><th>Código</th><th>Nome</th><th>Marca</th><th>Preço</th></tr>");
+                    while (resultado.next()) { //Faça enquanto tiver produtos na variável resultado
+                      out.print("<tr><td>" + resultado.getString("codigo") + "</td><td>" + resultado.getString("nome") + "</td><td>" + resultado.getString("marca") + "</td><td>" + resultado.getString("preco") + "</td></tr>");
+                    }
+                out.print("</table>");
+                
                 //5) Fechar a conexão com o banco de dados
                 conexao.close();
             } catch (ClassNotFoundException x) {
