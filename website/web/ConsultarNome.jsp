@@ -33,9 +33,16 @@
                 //4) Se o produto for encontrado, exibir os dados
                 //   Senão, exibir uma mensagem avisando que o produto não foi encontrado
                 out.print("<table>");
-                out.print("<tr><th>Código</th><th>Nome</th><th>Marca</th><th>Preço</th></tr>");
+                out.print("<tr><th>Código</th><th>Nome</th><th>Marca</th><th>Preço</th><th>Exclusão</th><th>Alteração</th></tr>");
                     while (resultado.next()) { //Faça enquanto tiver produtos na variável resultado
-                      out.print("<tr><td>" + resultado.getString("codigo") + "</td><td>" + resultado.getString("nome") + "</td><td>" + resultado.getString("marca") + "</td><td>" + resultado.getString("preco") + "</td></tr>");
+                      out.print(
+                              "<tr><td>" + resultado.getString("codigo") + 
+                              "</td><td>" + resultado.getString("nome") + 
+                              "</td><td>" + resultado.getString("marca") + 
+                              "</td><td>" + resultado.getString("preco") + 
+                              "</td><td><a href='ExcluirProdutos.jsp?codigo=" + 
+                              resultado.getString("codigo") + "'>Excluir</a></td><td><a href='BuscarProdutos.jsp?codigo=" + 
+                              resultado.getString("codigo") + "'>Alterar</a></td></tr>");
                     }
                 out.print("</table>");
                 
