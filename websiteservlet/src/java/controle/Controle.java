@@ -7,6 +7,8 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import modelo.Produto;
+import modelo.ProdutoDao;
 
 @WebServlet(name = "Controle", urlPatterns = {"/Controle"})
 public class Controle extends HttpServlet {
@@ -14,57 +16,63 @@ public class Controle extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet Controle</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet Controle at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
+        PrintWriter out = response.getWriter();
+        
+        //Declarando as variáveis
+        String flag, nome, marca;
+        int codigo;
+        double preco;
+        Produto prod;
+        ProdutoDao dao;
+        boolean conectou;
+        
+        //Recebendo a flag do formulário CadastrarProdutos.html
+        flag = request.getParameter("flag");
+        
+        //Verificando se eu vim do botão Salvar do formulário CadastrarProdutos.html
+        if (flag.equalsIgnoreCase("salvar")){
+
+            //Recebendo os demais dados do formulário CadastrarProdutos.html
+            codigo = Integer.parseInt(request.getParameter("codigo"));
+            nome = request.getParameter("nome");
+            marca = request.getParameter("marca");
+            preco = Double.parseDouble(request.getParameter("preco").replace("," , "."));
+            
+            //Encapsula os dados em um objeto prod da classe Produto.java
+            prod = new Produto(codigo, nome, marca, preco);
+            
+            //Conectar com o banco de dados bancoterca
+            dao = new ProdutoDao();
+            conectou = dao.conectar();
+            
+            out.print(conectou);
+            
+            
+        } else if (flag.equalsIgnoreCase("excluir")){
+            //Fazer a parte de exclusão
+        } else if (flag.equalsIgnoreCase("consultar")){
+            //Fazer a parte de consulta
+        } else if (flag.equalsIgnoreCase("alterar")){
+        
         }
+
     }
 
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
-    /**
-     * Handles the HTTP <code>GET</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
     }
 
-    /**
-     * Handles the HTTP <code>POST</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
     }
 
-    /**
-     * Returns a short description of the servlet.
-     *
-     * @return a String containing servlet description
-     */
     @Override
     public String getServletInfo() {
         return "Short description";
-    }// </editor-fold>
+    }
 
 }
