@@ -13,4 +13,21 @@ public class Produto {
         this.marca = marca;
         this.preco = preco;
     }
+    
+    //metodos getter - obter os dados armazenados na capsula
+    public int getCodigo(){
+     return this.codigo;   
+    }
+
+    public  String getNome(){
+        return this.nome;
+    }
+    
+    public String getMarca(){
+     return this.marca;
+    }
+    
+    public double getPreco(){
+        return this.preco;
+    }
 }
