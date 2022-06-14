@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -39,5 +40,26 @@ public class ProdutoDao {
             }
         }
    }
+    
+    public int excluir(int codigo){
+        int resultado; 
+        try {
+            st = conecta.prepareStatement("DELETE FROM produtos WHERE codigo = ?");
+            st.setInt(1, codigo);
+            resultado = st.executeUpdate();
+            if (resultado==1){
+                return 1;
+            }else{
+                return 0;
+            }
+        } catch (SQLException ex) {
+            return 2;
+        }
+    }
+    
+    public ArrayList consultar (String nome){
+        
+        return null;
+    }
 
 }

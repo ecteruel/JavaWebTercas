@@ -25,6 +25,7 @@ public class Controle extends HttpServlet {
         Produto prod;
         ProdutoDao dao;
         boolean conectou;
+        int excluiu;
 
         //Recebendo a flag do formulário CadastrarProdutos.html
         flag = request.getParameter("flag");
@@ -62,9 +63,37 @@ public class Controle extends HttpServlet {
             }
 
         } else if (flag.equalsIgnoreCase("excluir")) {
-            //Fazer a parte de exclusão
+            //Recebe o código digitado no formulário
+            codigo = Integer.parseInt(request.getParameter("codigo"));
+            
+            //Conectar com o banco de dados bancoterca
+            dao = new ProdutoDao();
+            conectou = dao.conectar();
+            if(conectou){
+                excluiu = dao.excluir(codigo);
+                if(excluiu==1){
+                    out.print("Produto excluído com sucesso");
+                }else if (excluiu==0){
+                    out.print("Este produto não está cadastrado");
+                }else{
+                    out.print("Erro ao tentar excluir o produto");
+                }
+            }else {
+                out.print("Erro na conexão com o banco de dados");
+            }
+            
         } else if (flag.equalsIgnoreCase("consultar")) {
-            //Fazer a parte de consulta
+            //Receber o nome que veio do formulário
+            nome = request.getParameter("nome");
+            //fazer a conexão com o banco de dados
+            dao = new ProdutoDao();
+            conectou = dao.conectar();
+            //Verifcar se conectou
+            if(conectou){
+                //chamar o método consultar da classe ProdutoDao
+            }else{
+                out.print("Erro na conexão");
+            }
         } else if (flag.equalsIgnoreCase("alterar")) {
 
         }
