@@ -2,6 +2,7 @@ package controle;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -26,6 +27,7 @@ public class Controle extends HttpServlet {
         ProdutoDao dao;
         boolean conectou;
         int excluiu;
+        ArrayList<Produto> lista;
 
         //Recebendo a flag do formulário CadastrarProdutos.html
         flag = request.getParameter("flag");
@@ -90,7 +92,26 @@ public class Controle extends HttpServlet {
             conectou = dao.conectar();
             //Verifcar se conectou
             if(conectou){
-                //chamar o método consultar da classe ProdutoDao
+                lista = dao.consultar(nome);
+                
+                out.print("<html>");
+                out.print("<head><style>table{width:60%;background-color:#ededed} td, th{border:solid black 1px;} *{margin:0 auto}</style></head>");
+                out.print("<body>");
+                out.print("<table>");
+                out.print("<caption>Lista de produtos</caption>");
+                out.print("<tr><th>Código</th><th>Nome</th><th>Marca</th><th>Preço</th></tr>");
+                for(int i = 0 ; i < lista.size(); i++){
+                  prod = lista.get(i);
+                  out.print("<tr><td>" + prod.getCodigo() + 
+                            "</td><td>" + prod.getNome() + 
+                            "</td><td>" + prod.getMarca() + 
+                            "</td><td>" + prod.getPreco() + 
+                            "</td></tr>");
+                }
+                out.print("</table>");
+                out.print("</body>");
+                out.print("</html>");
+                
             }else{
                 out.print("Erro na conexão");
             }

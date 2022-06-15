@@ -5,8 +5,9 @@ import java.sql.PreparedStatement;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.sql.ResultSet;
+
+
 
 public class ProdutoDao {
 
@@ -58,8 +59,28 @@ public class ProdutoDao {
     }
     
     public ArrayList consultar (String nome){
+        ArrayList<Produto> lista;
+        Produto prod;
+        ResultSet rs;
         
-        return null;
+        lista = new ArrayList<Produto>();
+        
+        try{    
+          st = conecta.prepareStatement("SELECT * FROM produtos WHERE nome LIKE ?");
+          st.setString(1, '%' + nome + '%');
+          rs = st.executeQuery();
+          while (rs.next()){
+              prod = new Produto(
+                  rs.getInt("codigo"),
+                  rs.getString("nome"),
+                  rs.getString("marca"),
+                  rs.getDouble("preco")
+              );
+              lista.add(prod);
+          }
+          return lista;
+        }catch (SQLException ex){
+           return null;   
+        }
     }
-
 }
